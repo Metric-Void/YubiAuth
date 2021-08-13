@@ -1,0 +1,14 @@
+name: YubiAuth
+main: com.metricv.yubiauth.PluginMain
+version: 1.0-SNAPSHOT
+author: MetricVoid
+commands:
+  yubiauth:
+    description: The base command for YubiAuth.
+    aliases:
+      - yauth
+    usage: /yubiauth <debug> ?
+permissions:
+  yubiauth.unauthed.move:
+    description: Allow moving when user not authenticated.
+    default: false

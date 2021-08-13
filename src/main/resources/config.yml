@@ -1,0 +1,4 @@
+SensitivePermissions:
+  - *
+Messages:
+  frozen: "You have been frozen from logging in due to having a high-privileged role. Please type your OTP in the chat to unlock."
