@@ -16,8 +16,10 @@ jobs:
         distribution: 'adopt'
         server-id: github
         settings-path: ${{ github.workspace }}
+    - name: Generate plugin.yml
+      run: chmod +x ./gradlew && ./gradlew spigotPlugin
     - name: Build with Gradle
-      run: chmod +x gradlew gradlew && ./gradlew build
+      run: ./gradlew build
     - name: ShadowJar
       run: ./gradlew shadowJar
     - name: Archive production artifacts
