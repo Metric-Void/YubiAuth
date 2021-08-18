@@ -6,7 +6,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 
-public class PlayerLoginEventListener : Listener {
+object PlayerLoginEventListener : Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     fun onPlayerJoin(event: PlayerJoinEvent) {
         PluginGlobal.getSensitivePermissions().forEach {

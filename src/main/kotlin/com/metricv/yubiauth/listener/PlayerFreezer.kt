@@ -1,5 +1,6 @@
 package com.metricv.yubiauth.listener
 
+import org.bukkit.Server
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -29,16 +30,16 @@ object PlayerFreezer : Listener {
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
-    fun onPlayerMove(e: PlayerMoveEvent) {
+    fun onPlayerChat(e: AsyncPlayerChatEvent) {
         if (frozenPlayers.contains(e.player.uniqueId)
-            && !e.player.hasPermission("yubiauth.unauthed.move")
+            && !e.player.hasPermission("yubiauth.unauthed.chat")
         ) e.isCancelled = true
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
-    fun onPlayerChat(e: AsyncPlayerChatEvent) {
+    fun onPlayerMove(e: PlayerMoveEvent) {
         if (frozenPlayers.contains(e.player.uniqueId)
-            && !e.player.hasPermission("yubiauth.unauthed.chat")
+            && !e.player.hasPermission("yubiauth.unauthed.move")
         ) e.isCancelled = true
     }
 
@@ -165,8 +166,15 @@ object PlayerFreezer : Listener {
         ) e.isCancelled = true
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     fun onPlayerLeave(e: PlayerQuitEvent) {
         frozenPlayers.remove(e.player.uniqueId)
+    }
+
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
+    fun onPlayerExecCommand(e: PlayerCommandPreprocessEvent) {
+        if (frozenPlayers.contains(e.player.uniqueId)
+            && !e.player.hasPermission("yubiauth.unauthed.command")
+        ) e.isCancelled = true
     }
 }
